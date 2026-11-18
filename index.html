@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rehan.ai — Your AI Partner to Earn 1 Lakh a Month | Rehan School Clone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .urdu-font { font-family: 'Noto Nastaliq Urdu', 'Inter', serif; line-height: 2; }
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.65); }
+      70% { transform: scale(1); box-shadow: 0 0 0 22px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .pulse-ring { animation: pulseRing 1.8s infinite; }
+    .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- Top Navbar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-extrabold text-xl flex items-center justify-center shadow-sm">
+          R
+        </div>
+        <div>
+          <div class="font-bold text-lg leading-tight flex items-center gap-1.5">
+            <span>Rehan.ai</span>
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Rehan School</span>
+          </div>
+          <p class="text-xs text-slate-500 hidden sm:block">Your AI partner to earn 1 Lakh a month</p>
+        </div>
+      </div>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+        <button onclick="switchTab('home')" data-nav="home" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition">Home</button>
+        <button onclick="switchTab('coach')" data-nav="coach" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition">AI Coach</button>
+        <button onclick="switchTab('tasks')" data-nav="tasks" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition">Rehan Points</button>
+        <button onclick="switchTab('profile')" data-nav="profile" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition">Profile & Plan</button>
+        <button onclick="switchTab('settings')" data-nav="settings" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition">Settings</button>
+      </nav>
+
+      <!-- Right Status Badges -->
+      <div class="flex items-center gap-2">
+        <button onclick="switchTab('tasks')" class="flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-800 px-3 py-1.5 rounded-full text-xs font-bold hover:bg-amber-100 transition">
+          <span>⭐</span>
+          <span id="headerPoints">0</span>
+          <span class="hidden sm:inline">Points</span>
+        </button>
+        <button onclick="openVoiceCall()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-sm transition">
+          <span>📞</span>
+          <span class="hidden sm:inline" data-i18n="callBtn">Call Rehan.ai</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Bottom-ish Subnav -->
+    <div class="md:hidden flex border-t border-slate-100 bg-white overflow-x-auto px-2 py-1.5 gap-1">
+      <button onclick="switchTab('home')" data-nav="home" class="nav-btn flex-1 whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium">Home</button>
+      <button onclick="switchTab('coach')" data-nav="coach" class="nav-btn flex-1 whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium">AI Coach</button>
+      <button onclick="switchTab('tasks')" data-nav="tasks" class="nav-btn flex-1 whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium">Points</button>
+      <button onclick="switchTab('profile')" data-nav="profile" class="nav-btn flex-1 whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium">Profile</button>
+      <button onclick="switchTab('settings')" data-nav="settings" class="nav-btn flex-1 whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium">Settings</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6">
+
+    <!-- ==================== TAB 1: HOME ==================== -->
+    <section id="tab-home" class="tab-panel space-y-8">
+      <!-- Hero -->
+      <div class="bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+        <div class="max-w-2xl relative z-10 space-y-5">
+          <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-emerald-100">
+            <span>🇵🇰 Built by Rehan Allahwala &amp; Rehan School Team</span>
+            <span>•</span>
+            <span>Free · Urdu + Roman Urdu + English</span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight" data-i18n="heroTitle">
+            Your AI Partner to Earn 1 Lakh a Month
+          </h1>
+          <p class="text-emerald-100 text-base sm:text-lg leading-relaxed" data-i18n="heroSub">
+            Rehan.ai is your personal AI coach for young people in Pakistan. Talk by voice call or chat in Urdu, Roman Urdu, or English — get practical daily tasks and a real plan to earn PKR 100,000 ($500)/month.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <button onclick="openVoiceCall()" class="bg-white text-emerald-900 hover:bg-emerald-50 font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transition">
+              <span>📞</span>
+              <span>Call me, Rehan.ai will explain</span>
+            </button>
+            <button onclick="switchTab('coach')" class="bg-emerald-600/80 hover:bg-emerald-500 border border-emerald-400/40 text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-2 transition">
+              <span>💬</span>
+              <span>Start Chatting</span>
+            </button>
+          </div>
+          <p class="text-xs text-emerald-200/90 font-medium">
+            ✓ $10.00 Free AI Credit included &nbsp;·&nbsp; ✓ You don't pay with money, you pay with action
+          </p>
+        </div>
+
+        <!-- Mini Coach Preview Card -->
+        <div class="mt-8 lg:mt-0 lg:absolute lg:right-8 lg:top-1/2 lg:-translate-y-1/2 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 w-full lg:w-72 text-white">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-lg">R</div>
+            <div>
+              <div class="font-bold text-sm">Rehan.ai AI Coach</div>
+              <div class="text-xs text-emerald-200 flex items-center gap-1">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span> Ready to mentor
+              </div>
+            </div>
+          </div>
+          <p class="text-xs text-emerald-50 bg-black/20 rounded-xl p-3 leading-relaxed">
+            "Assalam-o-Alaikum! Batao aaj ka 30-minute task kya hai? Hum mil kar aapka Rs. 25,000 se 1 Lakh/month ka plan banayenge."
+          </p>
+        </div>
+      </div>
+
+      <!-- Mission Stats -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+        <div class="text-center max-w-2xl mx-auto mb-6">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Our Mission</span>
+          <h2 class="text-2xl font-extrabold mt-1">Help 220 Million Pakistanis Earn $500 Per Month</h2>
+          <p class="text-sm text-slate-600 mt-2">
+            Learn. Take Action. Earn Points. Increase Your Income. Traditional coaching is expensive — on Rehan.ai, your action keeps mentorship free.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+            <div class="text-3xl font-extrabold text-emerald-700">220M</div>
+            <div class="text-xs text-slate-500 mt-1">People Target</div>
+          </div>
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+            <div class="text-3xl font-extrabold text-emerald-700">$500 / 1 Lakh</div>
+            <div class="text-xs text-slate-500 mt-1">Monthly Income Goal Each</div>
+          </div>
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+            <div class="text-3xl font-extrabold text-emerald-700">30 Mins</div>
+            <div class="text-xs text-slate-500 mt-1">Daily Skill &amp; Action Habit</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How to Start -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div onclick="switchTab('profile')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-400 transition">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">1</div>
+          <h3 class="font-bold text-sm">Complete Your Profile</h3>
+          <p class="text-xs text-slate-600 mt-1">Add your skills, current income, and CV or LinkedIn link.</p>
+        </div>
+        <div onclick="switchTab('coach')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-400 transition">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">2</div>
+          <h3 class="font-bold text-sm">Start a Call or Chat</h3>
+          <p class="text-xs text-slate-600 mt-1">Speak in Urdu, Roman Urdu, or English and share your goal.</p>
+        </div>
+        <div onclick="switchTab('tasks')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-400 transition">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">3</div>
+          <h3 class="font-bold text-sm">Earn Rehan Points</h3>
+          <p class="text-xs text-slate-600 mt-1">Finish CNIC, NayaPay, LinkedIn &amp; AI certificate tasks.</p>
+        </div>
+        <div onclick="switchTab('profile')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-400 transition">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">4</div>
+          <h3 class="font-bold text-sm">Come Back Every Day</h3>
+          <p class="text-xs text-slate-600 mt-1">Spend 30 mins daily — your coach follows up and tracks growth.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: AI COACH ==================== -->
+    <section id="tab-coach" class="tab-panel hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Left Coach Sidebar -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 space-y-5 h-fit">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white font-extrabold text-xl flex items-center justify-center">R</div>
+            <div>
+              <h2 class="font-bold text-base">Rehan.ai Mentor</h2>
+              <p class="text-xs text-emerald-600 font-medium" id="aiEngineBadge">Built-in Rehan Coach</p>
+            </div>
+          </div>
+
+          <button onclick="openVoiceCall()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-sm transition">
+            <span>📞</span>
+            <span>Start Voice Call</span>
+          </button>
+
+          <div class="bg-slate-50 rounded-xl p-3.5 border border-slate-100 space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-slate-500">Free Credit Left</span>
+              <span class="font-bold text-emerald-700" id="creditLeftLabel">$10.00</span>
+            </div>
+            <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+              <div id="creditBar" class="bg-emerald-500 h-full transition-all" style="width: 100%"></div>
+            </div>
+            <div class="flex justify-between pt-1">
+              <span class="text-slate-500">Reply Language</span>
+              <span class="font-semibold text-slate-700" id="coachLangLabel">Auto</span>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Quick Prompts</p>
+            <div class="space-y-2">
+              <button onclick="sendQuickPrompt('Mujhe 1 Lakh mahina kamane ka step-by-step plan do')" class="w-full text-left text-xs bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-lg p-2.5 transition">
+                💰 Mujhe 1 Lakh mahina kamane ka plan do
+              </button>
+              <button onclick="sendQuickPrompt('I am a student with zero skills. How do I earn Rs. 25,000/month freelancing?')" class="w-full text-left text-xs bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-lg p-2.5 transition">
+                🎓 Zero skills — how to earn Rs. 25,000/mo?
+              </button>
+              <button onclick="sendQuickPrompt('Review my profile and tell me my next task for today')" class="w-full text-left text-xs bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-lg p-2.5 transition">
+                ✅ Check my profile &amp; today's 30-min task
+              </button>
+              <button onclick="sendQuickPrompt('How do I build and sell AI chatbots or websites using Rehan School method?')" class="w-full text-left text-xs bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-lg p-2.5 transition">
+                🤖 Build &amp; sell AI projects (Rehan School)
+              </button>
+            </div>
+          </div>
+
+          <button onclick="clearChat()" class="w-full text-xs text-slate-400 hover:text-rose-600 py-1 transition">
+            Clear Chat History
+          </button>
+        </div>
+
+        <!-- Chat Box -->
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 flex flex-col h-[70vh] min-h-[500px] shadow-sm overflow-hidden">
+          <div class="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/70">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span class="font-semibold text-sm">Chat in Urdu, Roman Urdu, or English</span>
+            </div>
+            <label class="flex items-center gap-1.5 text-xs text-slate-600 cursor-pointer">
+              <input type="checkbox" id="autoSpeakToggle" class="rounded text-emerald-600" />
+              <span>🔊 Speak Replies</span>
+            </label>
+          </div>
+
+          <div id="chatMessages" class="flex-1 overflow-y-auto p-5 space-y-4 scrollbar-thin"></div>
+
+          <form onsubmit="handleChatSubmit(event)" class="p-3.5 border-t border-slate-100 bg-white flex items-center gap-2">
+            <button type="button" onclick="toggleChatMic()" id="chatMicBtn" title="Voice Input" class="p-2.5 rounded-xl bg-slate-100 hover:bg-emerald-100 text-slate-700 transition">
+              🎤
+            </button>
+            <input
+              id="chatInput"
+              type="text"
+              placeholder="Apna sawaal likhein (Urdu, Roman Urdu, ya English)..."
+              class="flex-1 bg-slate-100 focus:bg-white border border-transparent focus:border-emerald-500 rounded-xl px-4 py-2.5 text-sm outline-none transition"
+              autocomplete="off"
+            />
+            <button type="submit" id="sendBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition">
+              Send
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: REHAN POINTS & TASKS ==================== -->
+    <section id="tab-tasks" class="tab-panel hidden space-y-6">
+      <!-- Points Header -->
+      <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-6 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-amber-100">Action = Free Mentorship</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center gap-2 mt-1">
+            <span>⭐ Rehan Points:</span>
+            <span id="totalPointsDisplay">0</span>
+          </h2>
+          <p class="text-sm text-amber-50 mt-1">Complete practical tasks, submit progress, and build your 1 Lakh/month foundation.</p>
+        </div>
+        <div class="bg-white/15 backdrop-blur rounded-xl px-5 py-3 text-center">
+          <div class="text-xs text-amber-100">Daily Commitment</div>
+          <div class="text-xl font-extrabold" id="completedCountDisplay">0 / 7 Done</div>
+        </div>
+      </div>
+
+      <!-- Filter Tabs (matching Rehan.ai: All | To do | Pending | Completed) -->
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-1.5 bg-white p-1.5 rounded-xl border border-slate-200">
+          <button onclick="setTaskFilter('all')" data-filter="all" class="task-filter-btn px-4 py-1.5 rounded-lg text-xs font-semibold transition">All</button>
+          <button onclick="setTaskFilter('todo')" data-filter="todo" class="task-filter-btn px-4 py-1.5 rounded-lg text-xs font-semibold transition">To do</button>
+          <button onclick="setTaskFilter('pending')" data-filter="pending" class="task-filter-btn px-4 py-1.5 rounded-lg text-xs font-semibold transition">Pending</button>
+          <button onclick="setTaskFilter('completed')" data-filter="completed" class="task-filter-btn px-4 py-1.5 rounded-lg text-xs font-semibold transition">Completed</button>
+        </div>
+        <button onclick="openAddTaskModal()" class="text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl transition">
+          + Add Custom Daily Task
+        </button>
+      </div>
+
+      <!-- Task Cards -->
+      <div id="tasksGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+    <!-- ==================== TAB 4: PROFILE & INCOME PLAN ==================== -->
+    <section id="tab-profile" class="tab-panel hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Profile Form -->
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-lg font-bold">Your Rehan.ai Profile</h2>
+              <p class="text-xs text-slate-500">Your AI coach uses this to personalize your 1 Lakh/month roadmap.</p>
+            </div>
+            <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-3 py-1 rounded-full" id="profileCompletionBadge">0% Complete</span>
+          </div>
+
+          <form onsubmit="saveProfile(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Full Name</label>
+              <input id="profName" type="text" placeholder="e.g., Ali Raza" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">City</label>
+              <input id="profCity" type="text" placeholder="e.g., Karachi / Lahore / Online" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Current Monthly Income (PKR)</label>
+              <input id="profCurrentIncome" type="number" min="0" placeholder="e.g., 15000" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Target Monthly Income (PKR)</label>
+              <input id="profTargetIncome" type="number" min="10000" placeholder="100000" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Current Skills / Interests</label>
+              <input id="profSkills" type="text" placeholder="e.g., Canva, ChatGPT, Video Editing, Web Dev, English Speaking" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">LinkedIn / Facebook Profile URL</label>
+              <input id="profSocial" type="url" placeholder="https://linkedin.com/in/..." class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">CV / Portfolio Summary or Link</label>
+              <input id="profCv" type="text" placeholder="Link or short summary (e.g., Matric / BSCS)" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
+            </div>
+            <div class="sm:col-span-2 flex items-center justify-between pt-2">
+              <span id="profileSavedMsg" class="text-xs text-emerald-600 font-semibold hidden">✓ Saved &amp; synced with AI Coach!</span>
+              <button type="submit" class="ml-auto bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition">
+                Save Profile
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Income Roadmap Card -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
+          <h3 class="font-bold text-base">Income Growth Roadmap</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-medium">
+              <span class="text-slate-500">Current vs Goal</span>
+              <span class="font-bold text-emerald-700" id="incomeRatioText">PKR 0 / 100,000</span>
+            </div>
+            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+              <div id="incomeProgressBar" class="bg-emerald-500 h-full transition-all" style="width: 5%"></div>
+            </div>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
+              <div class="font-bold text-emerald-900">Phase 1: PKR 25,000 / mo (Rehan School Goal)</div>
+              <p class="text-emerald-700 mt-0.5">Learn 1 AI skill (ChatGPT + Canva / Coding with AI), fix LinkedIn, teach 1 learner or land first micro-gig.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="font-bold text-slate-800">Phase 2: PKR 50,000 / mo</div>
+              <p class="text-slate-600 mt-0.5">Daily 30-min outreach, Upwork/Fiverr + international networking, build 3 live clone projects.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="font-bold text-slate-800">Phase 3: PKR 100,000 ($500+) / mo</div>
+              <p class="text-slate-600 mt-0.5">Retainer clients, AI automation/content services, or launching your own digital micro-agency.</p>
+            </div>
+          </div>
+
+          <button onclick="askCoachForPlan()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2.5 rounded-xl text-xs transition">
+            Generate My Custom Plan in Chat →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: SETTINGS ==================== -->
+    <section id="tab-settings" class="tab-panel hidden max-w-2xl mx-auto space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
+        <h2 class="text-lg font-bold">Language &amp; AI Settings</h2>
+
+        <!-- Language -->
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Choose Your Language</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button onclick="setLanguage('auto')" data-lang="auto" class="lang-btn border rounded-xl py-2.5 px-3 text-xs font-semibold transition">Auto</button>
+            <button onclick="setLanguage('en')" data-lang="en" class="lang-btn border rounded-xl py-2.5 px-3 text-xs font-semibold transition">English</button>
+            <button onclick="setLanguage('roman')" data-lang="roman" class="lang-btn border rounded-xl py-2.5 px-3 text-xs font-semibold transition">Roman Urdu</button>
+            <button onclick="setLanguage('ur')" data-lang="ur" class="lang-btn border rounded-xl py-2.5 px-3 text-xs font-semibold transition">اردو (Urdu)</button>
+          </div>
+        </div>
+
+        <hr class="border-slate-100" />
+
+        <!-- AI Backend Provider -->
+        <div class="space-y-3">
+          <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider">AI Mentor Engine</label>
+          <select id="aiProviderSelect" onchange="saveAiSettings()" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500">
+            <option value="local">Built-in Rehan Coach (Free, Offline, Zero Setup)</option>
+            <option value="gemini">Google Gemini API (Live LLM)</option>
+            <option value="openai">OpenAI GPT API (Live LLM)</option>
+          </select>
+
+          <div id="apiKeyWrapper" class="hidden space-y-2">
+            <label class="block text-xs font-semibold text-slate-600">API Key (Stored locally in your browser)</label>
+            <input id="apiKeyInput" type="password" placeholder="Paste Gemini or OpenAI API key..." oninput="saveAiSettings()" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500" />
+            <p class="text-[11px] text-slate-500">
+              Tip: If using Gemini, get a free key from Google AI Studio. The app automatically uses Rehan Allahwala's mentorship system prompt.
+            </p>
+          </div>
+        </div>
+
+        <hr class="border-slate-100" />
+
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-sm font-semibold text-rose-600">Reset All App Data</div>
+            <div class="text-xs text-slate-500">Clears chats, profile, and Rehan Points back to default.</div>
+          </div>
+          <button onclick="resetAllData()" class="px-4 py-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-semibold transition">
+            Reset Data
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== VOICE CALL MODAL ==================== -->
+  <div id="voiceModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+    <div class="bg-gradient-to-b from-emerald-900 to-slate-900 border border-emerald-700/50 rounded-3xl max-w-sm w-full p-8 text-center text-white shadow-2xl space-y-6">
+      <div class="text-xs uppercase tracking-widest text-emerald-300 font-semibold" id="callStatusText">Calling Rehan.ai…</div>
+
+      <div class="flex justify-center">
+        <div id="callAvatarRing" class="w-28 h-28 rounded-full bg-emerald-500 flex items-center justify-center text-4xl font-extrabold pulse-ring">
+          R
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-bold">Rehan.ai AI Coach</h3>
+        <p class="text-xs text-emerald-200 mt-1" id="callTimer">00:00</p>
+      </div>
+
+      <div class="bg-black/30 rounded-2xl p-4 min-h-[92px] flex items-center justify-center text-xs text-emerald-50 leading-relaxed" id="callTranscript">
+        Tap "Speak Now" to talk in English, Urdu, or Roman Urdu.
+      </div>
+
+      <div class="flex items-center justify-center gap-4">
+        <button onclick="listenDuringCall()" id="callMicBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-5 py-3 rounded-2xl text-sm flex items-center gap-2 transition">
+          <span>🎙️</span>
+          <span>Speak Now</span>
+        </button>
+        <button onclick="closeVoiceCall()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-5 py-3 rounded-2xl text-sm transition">
+          End Call
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TASK GUIDE MODAL ==================== -->
+  <div id="taskModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-xl">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <span id="modalTaskBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800">+50 Points</span>
+          <h3 id="modalTaskTitle" class="text-lg font-bold mt-1.5">Task Title</h3>
+        </div>
+        <button onclick="closeTaskModal()" class="text-slate-400 hover:text-slate-700 text-xl leading-none">&times;</button>
+      </div>
+
+      <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+        <div class="text-xs font-bold text-slate-500 uppercase mb-1.5">Step-by-Step Guide</div>
+        <ol id="modalTaskSteps" class="list-decimal list-inside space-y-1.5 text-xs text-slate-700"></ol>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Proof / Note of Action (optional)</label>
+        <input id="modalTaskProof" type="text" placeholder="e.g., Created my LinkedIn & shared link" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-emerald-500" />
+      </div>
+
+      <div class="flex gap-2 justify-end pt-2">
+        <button onclick="submitTaskPending()" class="px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition">
+          Submit as Pending
+        </button>
+        <button onclick="completeTaskNow()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition">
+          Verify &amp; Claim Points ⭐
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ADD CUSTOM TASK MODAL ==================== -->
+  <div id="addTaskModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <form onsubmit="createCustomTask(event)" class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-xl">
+      <div class="flex justify-between items-center">
+        <h3 class="font-bold text-base">Add Daily Action Task</h3>
+        <button type="button" onclick="closeAddTaskModal()" class="text-slate-400 hover:text-slate-700 text-xl">&times;</button>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Task Title</label>
+        <input id="newTaskTitle" required type="text" placeholder="e.g., Send 5 freelance proposals today" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-emerald-500" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-600 mb-1">Description</label>
+        <input id="newTaskDesc" required type="text" placeholder="Spend 30 mins pitching international clients" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-emerald-500" />
+      </div>
+      <div class="flex justify-end gap-2">
+        <button type="button" onclick="closeAddTaskModal()" class="px-4 py-2 text-xs text-slate-500">Cancel</button>
+        <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold">Add Task (+25 ⭐)</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // ==================== DEFAULT STATE ====================
+    const DEFAULT_TASKS = [
+      {
+        id: 't1',
+        title: 'Get Your CNIC / Smart Card Ready',
+        desc: 'Required for digital wallets, freelancing accounts, and global payments.',
+        points: 50,
+        status: 'todo',
+        proof: '',
+        steps: [
+          'Check that your CNIC (or Juvenile Smart Card if under 18) is valid and clear.',
+          'Take clear front & back photos in bright lighting.',
+          'Keep it saved securely for NayaPay, Payoneer, or Upwork verification.'
+        ]
+      },
+      {
+        id: 't2',
+        title: 'Open NayaPay or SadaPay Account',
+        desc: 'Set up your Pakistani digital bank wallet to receive online & freelance payments.',
+        points: 75,
+        status: 'todo',
+        proof: '',
+        steps: [
+          'Download NayaPay or SadaPay from Google Play / App Store.',
+          'Register using your mobile number and CNIC.',
+          'Verify biometric/selfie and get your IBAN ready for freelancing.'
+        ]
+      },
+      {
+        id: 't3',
+        title: 'Optimize Your LinkedIn Profile',
+        desc: 'Connect with global mentors, CEOs, and clients — Rehan School style networking.',
+        points: 100,
+        status: 'todo',
+        proof: '',
+        steps: [
+          'Upload a clean, smiling profile photo.',
+          'Write a clear headline: e.g., "AI Enthusiast & Web Builder | Helping Businesses Grow".',
+          'Connect with 10 new people daily and post 1 short learning update.'
+        ]
+      },
+      {
+        id: 't4',
+        title: 'Complete Your Profile & Upload CV Link',
+        desc: 'Tell Rehan.ai your skills and current income so it builds your 1 Lakh plan.',
+        points: 50,
+        status: 'todo',
+        proof: '',
+        steps: [
+          'Go to the Profile & Plan tab in this app.',
+          'Fill in your city, current income, target income, and skills.',
+          'Add your LinkedIn/Facebook or CV link and click Save.'
+        ]
+      },
+      {
+        id: 't5',
+        title: '30-Minute Daily AI Skill Session',
+        desc: 'Spend 30 focused minutes today practicing ChatGPT, Canva, or Coding with AI.',
+        points: 40,
+        status: 'todo',
+        proof: '',
+        steps: [
+          'Set a 30-minute timer with zero phone distractions.',
+          'Build 1 small project (a landing page, logo, or AI prompt workflow).',
+          'Share your daily learning publicly on LinkedIn or Facebook (#RehanSchool).'
+        ]
+      },
+      {
+        id: 't6',
+        title: 'Earn Your First AI Certificate',
+        desc: 'Complete a free AI basics / Rehan AI Emergency course module and share it.',
+        points: 100,
+        status: 'todo',
+        proof: '',
+        steps: [
+          'Watch a structured AI or ChatGPT Mastery module (35 mins/day).',
+          'Practice the prompt or tool on a real-world problem.',
+          'Add the completed certificate to your LinkedIn profile.'
+        ]
+      },
+      {
+        id: 't7',
+        title: 'Pitch Your First Paying Client / Learner',
+        desc: 'Aim for your first Rs. 1,000 to Rs. 25,000 by solving a real problem for someone.',
+        points: 150,
+        status: 'todo',
+        proof: '',
+        steps: [
+          'Identify 1 skill you can offer today (AI tutoring, social post design, website clone).',
+          'Message 5 local businesses or international leads with a sample.',
+          'Follow up politely and deliver fast value.'
+        ]
+      }
+    ];
+
+    const STORAGE_KEY = 'rehan_ai_clone_v1';
+
+    let state = loadState();
+    let currentTab = 'home';
+    let currentTaskFilter = 'all';
+    let activeTaskId = null;
+    let callTimerInterval = null;
+    let callSeconds = 0;
+    let activeRecognition = null;
+
+    function loadState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+      return {
+        language: 'auto',
+        aiProvider: 'local',
+        apiKey: '',
+        credit: 10.00,
+        profile: {
+          name: '',
+          city: '',
+          currentIncome: 0,
+          targetIncome: 100000,
+          skills: '',
+          social: '',
+          cv: ''
+        },
+        tasks: JSON.parse(JSON.stringify(DEFAULT_TASKS)),
+        messages: [
+          {
+            role: 'assistant',
+            text: "Assalam-o-Alaikum! Main hoon Rehan.ai — aapka personal AI earning coach (Rehan School model).\n\nMera mission hai ke aap mahina PKR 100,000 ($500) tak kamayein. Mujhse Urdu, Roman Urdu, ya English mein baat karein!\n\nBatao: Aapka naam kya hai, abhi aap kya karte hain, aur aap kaunsi skill seekh kar earning start karna chahte hain?"
+          }
+        ]
+      };
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      renderAllMeta();
+    }
+
+    // ==================== NAVIGATION ====================
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-panel').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`tab-${tab}`).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.dataset.nav === tab) {
+          btn.classList.add('bg-white', 'text-emerald-700', 'shadow-sm', 'font-bold');
+          btn.classList.remove('text-slate-600');
+        } else {
+          btn.classList.remove('bg-white', 'text-emerald-700', 'shadow-sm', 'font-bold');
+          btn.classList.add('text-slate-600');
+        }
+      });
+
+      if (tab === 'coach') scrollChatToBottom();
+      if (tab === 'tasks') renderTasks();
+      if (tab === 'profile') renderProfile();
+      if (tab === 'settings') renderSettings();
+    }
+
+    // ==================== RENDER META ====================
+    function getPoints() {
+      return state.tasks
+        .filter(t => t.status === 'completed')
+        .reduce((sum, t) => sum + Number(t.points || 0), 0);
+    }
+
+    function renderAllMeta() {
+      const pts = getPoints();
+      document.getElementById('headerPoints').textContent = pts;
+      document.getElementById('totalPointsDisplay').textContent = pts;
+
+      const doneCount = state.tasks.filter(t => t.status === 'completed').length;
+      document.getElementById('completedCountDisplay').textContent = `${doneCount} / ${state.tasks.length} Done`;
+
+      document.getElementById('creditLeftLabel').textContent = `$${state.credit.toFixed(2)}`;
+      document.getElementById('creditBar').style.width = `${Math.max(0, Math.min(100, (state.credit / 10) * 100))}%`;
+
+      const langNames = { auto: 'Auto', en: 'English', roman: 'Roman Urdu', ur: 'اردو' };
+      document.getElementById('coachLangLabel').textContent = langNames[state.language] || 'Auto';
+
+      const engineNames = {
+        local: 'Built-in Rehan Coach',
+        gemini: 'Google Gemini Live',
+        openai: 'OpenAI GPT Live'
+      };
+      document.getElementById('aiEngineBadge').textContent = engineNames[state.aiProvider] || 'Built-in Rehan Coach';
+    }
+
+    // ==================== CHAT ENGINE ====================
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function formatText(str) {
+      return escapeHtml(str)
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, '<br>');
+    }
+
+    function renderChat() {
+      const box = document.getElementById('chatMessages');
+      box.innerHTML = '';
+      state.messages.forEach(msg => {
+        const isUser = msg.role === 'user';
+        const wrap = document.createElement('div');
+        wrap.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+        const isUrduScript = /[\u0600-\u06FF]/.test(msg.text);
+
+        wrap.innerHTML = `
+          <div class="max-w-[85%] sm:max-w-[75%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm ${
+            isUser
+              ? 'bg-emerald-600 text-white rounded-br-sm'
+              : 'bg-slate-100 text-slate-800 rounded-bl-sm border border-slate-200'
+          } ${isUrduScript ? 'urdu-font text-right' : ''}">
+            ${formatText(msg.text)}
+          </div>
+        `;
+        box.appendChild(wrap);
+      });
+      scrollChatToBottom();
+    }
+
+    function scrollChatToBottom() {
+      const box = document.getElementById('chatMessages');
+      setTimeout(() => { box.scrollTop = box.scrollHeight; }, 30);
+    }
+
+    async function handleChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      await processUserMessage(text);
+    }
+
+    function sendQuickPrompt(text) {
+      switchTab('coach');
+      processUserMessage(text);
+    }
+
+    function askCoachForPlan() {
+      switchTab('coach');
+      const p = state.profile;
+      const prompt = `Build my personalized 30-day plan to go from PKR ${p.currentIncome || 0}/month to PKR ${p.targetIncome || 100000}/month. My name is ${p.name || 'a learner'}, city: ${p.city || 'Pakistan'}, skills: ${p.skills || 'beginner'}.`;
+      processUserMessage(prompt);
+    }
+
+    async function processUserMessage(text) {
+      state.messages.push({ role: 'user', text });
+      // Deduct tiny simulated credit like Rehan.ai
+      state.credit = Math.max(0, +(state.credit - 0.02).toFixed(2));
+      saveState();
+      renderChat();
+
+      // Typing indicator
+      const box = document.getElementById('chatMessages');
+      const typing = document.createElement('div');
+      typing.id = 'typingIndicator';
+      typing.className = 'flex justify-start';
+      typing.innerHTML = `<div class="bg-slate-100 border border-slate-200 text-slate-500 rounded-2xl px-4 py-2.5 text-xs">Rehan.ai is thinking…</div>`;
+      box.appendChild(typing);
+      scrollChatToBottom();
+
+      const reply = await getCoachReply(text);
+      document.getElementById('typingIndicator')?.remove();
+
+      state.messages.push({ role: 'assistant', text: reply });
+      saveState();
+      renderChat();
+
+      if (document.getElementById('autoSpeakToggle')?.checked) {
+        speakText(reply);
+      }
+      return reply;
+    }
+
+    function buildSystemPrompt() {
+      const p = state.profile;
+      const pendingTasks = state.tasks.filter(t => t.status !== 'completed').map(t => t.title).slice(0, 3).join(', ');
+      const langRule =
+        state.language === 'ur' ? 'Reply in Urdu script (اردو).' :
+        state.language === 'roman' ? 'Reply in friendly Roman Urdu.' :
+        state.language === 'en' ? 'Reply in simple, encouraging English.' :
+        'Match the user language (English, Roman Urdu, or Urdu).';
+
+      return `You are Rehan.ai, the personal AI earning coach built by Rehan Allahwala and the Rehan School team in Pakistan.
+Mission: Help young Pakistanis earn at least PKR 100,000 ($500) per month through AI skills, freelancing, networking, daily 30-minute habits, and action.
+Tone: Practical, motivating, direct, no-excuses like Rehan Allahwala. Always give concrete next steps (CNIC, NayaPay, LinkedIn, 30-min daily skill, Rehan Points tasks).
+User Profile: Name=${p.name || 'Not set'}, City=${p.city || 'Pakistan'}, Current Income=PKR ${p.currentIncome || 0}/mo, Target=PKR ${p.targetIncome || 100000}/mo, Skills=${p.skills || 'Beginner'}, Points=${getPoints()}.
+Pending Rehan Tasks: ${pendingTasks || 'All done!'}.
+${langRule} Keep responses concise and action-oriented.`;
+    }
+
+    async function getCoachReply(userText) {
+      // Live Gemini
+      if (state.aiProvider === 'gemini' && state.apiKey.trim()) {
+        try {
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(state.apiKey.trim())}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              systemInstruction: { parts: [{ text: buildSystemPrompt() }] },
+              contents: state.messages.slice(-10).map(m => ({
+                role: m.role === 'assistant' ? 'model' : 'user',
+                parts: [{ text: m.text }]
+              }))
+            })
+          });
+          const data = await res.json();
+          const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text) return text;
+        } catch (err) {
+          console.warn('Gemini fallback triggered:', err);
+        }
+      }
+
+      // Live OpenAI
+      if (state.aiProvider === 'openai' && state.apiKey.trim()) {
+        try {
+          const res = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${state.apiKey.trim()}`
+            },
+            body: JSON.stringify({
+              model: 'gpt-4o-mini',
+              messages: [
+                { role: 'system', content: buildSystemPrompt() },
+                ...state.messages.slice(-10).map(m => ({ role: m.role, content: m.text }))
+              ]
+            })
+          });
+          const data = await res.json();
+          const text = data?.choices?.[0]?.message?.content;
+          if (text) return text;
+        } catch (err) {
+          console.warn('OpenAI fallback triggered:', err);
+        }
+      }
+
+      // Built-in Smart Rehan Coach Engine (zero-setup fallback)
+      return generateLocalRehanReply(userText);
+    }
+
+    function generateLocalRehanReply(input) {
+      const q = input.toLowerCase();
+      const p = state.profile;
+      const name = p.name ? p.name : 'Dost';
+      const nextTask = state.tasks.find(t => t.status !== 'completed');
+      const wantsUrdu = state.language === 'ur' || /[\u0600-\u06FF]/.test(input);
+      const wantsRoman = state.language === 'roman' || /\b(kya|kaise|mujhe|kamana|kamane|paise|lakh|mahina|karna|seekh|batao|bhai|aap|haan|nahi)\b/i.test(q);
+
+      if (wantsUrdu) {
+        return `السلام علیکم ${name}! آپ کا موجودہ ہدف **1 لاکھ روپے ($500) ماہانہ** ہے اور آپ کے پاس ابھی **${getPoints()} ریحان پوائنٹس** ہیں۔\n\nآج کے 3 عملی قدم:\n1. روزانہ 30 منٹ AI سکل (ChatGPT، Canva، یا Coding with AI) سیکھیں۔\n2. اپنا LinkedIn پروفائل بہتر بنائیں اور روز 10 نئے لوگوں سے جڑیں۔\n3. ابھی اپنا اگلا ٹاسک مکمل کریں: **${nextTask ? nextTask.title : 'تمام ٹاسک مکمل ہیں!'}**`;
+      }
+
+      if (q.includes('1 lakh') || q.includes('plan') || q.includes('25,000') || q.includes('earn') || q.includes('kamane')) {
+        if (wantsRoman) {
+          return `Zabardast ${name}! **PKR 100,000 ($500)/month** tak pohnchne ka Rehan School 3-Step Formula:\n\n**Week 1-2 (Foundation — Rs. 25,000 goal):**\n• Roz 30 minutes ChatGPT + Canva ya AI Coding practice karein.\n• Apna CNIC, NayaPay/SadaPay aur LinkedIn ready karein (**Rehan Points** tab mein guides maujood hain).\n\n**Week 3-4 (First Income):**\n• Jo seekha wo doosron ko sikhayein (1,000 PKR/learner) ya 5 international/local clients ko sample bhejein.\n\nAaj ka aapka pehla task: **${nextTask ? nextTask.title : 'Daily 30-min skill'}**. Kar ke Rehan Points claim karein!`;
+        }
+        return `Great goal, ${name}! Here is your **Rehan School Action Plan to hit PKR 100,000 ($500)/month**:\n\n**Step 1 (Foundation — Rs. 25,000/mo):** Pick 1 high-demand AI skill (${p.skills || 'ChatGPT automation, Canva design, or AI Web Building'}) and practice 30 mins daily.\n**Step 2 (Setup Trust):** Finish your **CNIC, NayaPay/SadaPay, and LinkedIn** tasks in the Rehan Points tab.\n**Step 3 (Monetize):** Teach 1 learner or pitch 5 businesses a day with a live demo.\n\n**Your immediate next task:** "${nextTask ? nextTask.title : 'Keep your 30-min daily streak!'}"`;
+      }
+
+      if (q.includes('profile') || q.includes('task') || q.includes('review')) {
+        const missing = !p.name || !p.skills ? 'Please complete your Name & Skills in the **Profile & Plan** tab so I can tailor your roadmap.' : `Profile looks active! Skills noted: **${p.skills}**.`;
+        return `${missing}\n\nYou currently have **⭐ ${getPoints()} Rehan Points**.\nYour next recommended task is: **${nextTask ? nextTask.title : 'All core tasks completed — add a custom daily pitch task!'}**\n\nWill you commit 30 minutes to finish this today?`;
+      }
+
+      if (q.includes('ai') || q.includes('chatbot') || q.includes('coding') || q.includes('website')) {
+        return `At **Rehan School (Coding with AI)**, students build functional clones of WhatsApp, ChatGPT, Netflix, and business dashboards using AI — then turn that into a portfolio!\n\nPick one niche today:\n1. Build a local business website + AI chatbot in 2 hours.\n2. Offer it to 5 local clinics/academies/shops for PKR 15,000–25,000 each.\n\n4 clients = **PKR 1 Lakh/month**. Ready to start?`;
+      }
+
+      if (wantsRoman) {
+        return `Bilkul sahi ${name}! Yaad rakhein: **Action se hi mentorship free rehti hai aur income barhti hai.**\n\nAapke abhi **⭐ ${getPoints()} Rehan Points** hain. Aaj sirf 30 minutes lagayein aur apna agla task complete karein: **${nextTask ? nextTask.title : 'Daily Client Outreach'}**.\n\nBatao kya aapne apni Profile aur LinkedIn link update kar diya hai?`;
+      }
+
+      return `I hear you, ${name}! Remember the Rehan.ai rule: **Small daily actions beat big excuses.**\n\nYou currently have **⭐ ${getPoints()} Rehan Points**. Your next step toward PKR 100,000/month is:\n👉 **${nextTask ? nextTask.title : 'Pitch 5 new clients today'}**\n\nTell me what skill you want to focus on for the next 30 minutes, or tap **Call Rehan.ai** for a live voice check-in!`;
+    }
+
+    function clearChat() {
+      if (!confirm('Clear chat history?')) return;
+      state.messages = [state.messages[0]];
+      saveState();
+      renderChat();
+    }
+
+    // ==================== VOICE & SPEECH ====================
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const clean = text.replace(/\*\*/g, '');
+      const utter = new SpeechSynthesisUtterance(clean);
+      utter.lang = /[\u0600-\u06FF]/.test(clean) ? 'ur-PK' : 'en-US';
+      utter.rate = 1.02;
+      window.speechSynthesis.speak(utter);
+    }
+
+    function createRecognition() {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) return null;
+      const rec = new SR();
+      rec.lang = state.language === 'ur' ? 'ur-PK' : 'en-US';
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+      return rec;
+    }
+
+    function toggleChatMic() {
+      const rec = createRecognition();
+      if (!rec) {
+        alert('Voice input requires Chrome or Edge browser.');
+        return;
+      }
+      const btn = document.getElementById('chatMicBtn');
+      btn.classList.add('bg-rose-100', 'text-rose-600');
+      rec.onresult = (e) => {
+        const transcript = e.results[0][0].transcript;
+        document.getElementById('chatInput').value = transcript;
+        btn.classList.remove('bg-rose-100', 'text-rose-600');
+        processUserMessage(transcript);
+      };
+      rec.onerror = () => btn.classList.remove('bg-rose-100', 'text-rose-600');
+      rec.onend = () => btn.classList.remove('bg-rose-100', 'text-rose-600');
+      rec.start();
+    }
+
+    // Voice Call Modal
+    function openVoiceCall() {
+      const modal = document.getElementById('voiceModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.getElementById('callStatusText').textContent = 'Connected · Rehan.ai Voice Mentor';
+      document.getElementById('callTranscript').textContent = 'Assalam-o-Alaikum! Main Rehan.ai bol raha hoon. Tap "Speak Now" and tell me your goal!';
+      speakText('Assalam-o-Alaikum! This is Rehan AI, your personal earning coach. Tell me your goal today.');
+
+      callSeconds = 0;
+      clearInterval(callTimerInterval);
+      callTimerInterval = setInterval(() => {
+        callSeconds++;
+        const m = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+        const s = String(callSeconds % 60).padStart(2, '0');
+        document.getElementById('callTimer').textContent = `${m}:${s}`;
+      }, 1000);
+    }
+
+    function listenDuringCall() {
+      const rec = createRecognition();
+      if (!rec) {
+        alert('Voice call microphone requires Chrome or Edge.');
+        return;
+      }
+      activeRecognition = rec;
+      const btn = document.getElementById('callMicBtn');
+      btn.innerHTML = '<span>🎙️</span><span>Listening…</span>';
+      document.getElementById('callTranscript').textContent = 'Listening to you… speak now.';
+
+      rec.onresult = async (e) => {
+        const heard = e.results[0][0].transcript;
+        btn.innerHTML = '<span>🎙️</span><span>Speak Now</span>';
+        document.getElementById('callTranscript').textContent = `You: "${heard}" — Thinking…`;
+        const reply = await processUserMessage(heard);
+        document.getElementById('callTranscript').textContent = reply.replace(/\*\*/g, '');
+        speakText(reply);
+      };
+
+      rec.onerror = () => {
+        btn.innerHTML = '<span>🎙️</span><span>Speak Now</span>';
+        document.getElementById('callTranscript').textContent = 'Could not hear clearly. Tap "Speak Now" to try again.';
+      };
+
+      rec.start();
+    }
+
+    function closeVoiceCall() {
+      clearInterval(callTimerInterval);
+      window.speechSynthesis?.cancel();
+      activeRecognition?.abort();
+      const modal = document.getElementById('voiceModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // ==================== REHAN POINTS & TASKS ====================
+    function setTaskFilter(filter) {
+      currentTaskFilter = filter;
+      renderTasks();
+    }
+
+    function renderTasks() {
+      document.querySelectorAll('.task-filter-btn').forEach(btn => {
+        if (btn.dataset.filter === currentTaskFilter) {
+          btn.classList.add('bg-emerald-600', 'text-white');
+          btn.classList.remove('text-slate-600');
+        } else {
+          btn.classList.remove('bg-emerald-600', 'text-white');
+          btn.classList.add('text-slate-600');
+        }
+      });
+
+      const grid = document.getElementById('tasksGrid');
+      const filtered = state.tasks.filter(t => currentTaskFilter === 'all' || t.status === currentTaskFilter);
+
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="md:col-span-2 bg-white border border-slate-200 rounded-2xl p-8 text-center text-sm text-slate-500">No tasks in "${currentTaskFilter}" yet.</div>`;
+        return;
+      }
+
+      grid.innerHTML = '';
+      filtered.forEach(task => {
+        const badgeClass =
+          task.status === 'completed' ? 'bg-emerald-100 text-emerald-800' :
+          task.status === 'pending' ? 'bg-amber-100 text-amber-800' :
+          'bg-slate-100 text-slate-700';
+
+        const statusLabel =
+          task.status === 'completed' ? '✓ Completed' :
+          task.status === 'pending' ? '⏳ Pending Verification' :
+          'To do';
+
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-2xl border border-slate-200 p-5 flex flex-col justify-between gap-4 hover:border-emerald-300 transition';
+        card.innerHTML = `
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${badgeClass}">${statusLabel}</span>
+              <span class="text-xs font-extrabold text-amber-600">⭐ +${task.points} pts</span>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900">${escapeHtml(task.title)}</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">${escapeHtml(task.desc)}</p>
+            ${task.proof ? `<p class="text-[11px] bg-slate-50 border border-slate-100 rounded-lg px-2.5 py-1.5 text-slate-600">Proof: ${escapeHtml(task.proof)}</p>` : ''}
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+            <button onclick="openTaskModal('${task.id}')" class="text-xs font-semibold text-emerald-700 hover:underline">
+              ${task.status === 'completed' ? 'View Guide' : 'Open Guide & Complete →'}
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function openTaskModal(id) {
+      activeTaskId = id;
+      const task = state.tasks.find(t => t.id === id);
+      if (!task) return;
+      document.getElementById('modalTaskBadge').textContent = `⭐ +${task.points} Rehan Points`;
+      document.getElementById('modalTaskTitle').textContent = task.title;
+      document.getElementById('modalTaskProof').value = task.proof || '';
+      const stepsEl = document.getElementById('modalTaskSteps');
+      stepsEl.innerHTML = task.steps.map(s => `<li>${escapeHtml(s)}</li>`).join('');
+
+      const modal = document.getElementById('taskModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeTaskModal() {
+      const modal = document.getElementById('taskModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function submitTaskPending() {
+      const task = state.tasks.find(t => t.id === activeTaskId);
+      if (!task) return;
+      task.status = 'pending';
+      task.proof = document.getElementById('modalTaskProof').value.trim();
+      saveState();
+      closeTaskModal();
+      renderTasks();
+    }
+
+    function completeTaskNow() {
+      const task = state.tasks.find(t => t.id === activeTaskId);
+      if (!task) return;
+      task.status = 'completed';
+      task.proof = document.getElementById('modalTaskProof').value.trim() || 'Completed';
+      saveState();
+      closeTaskModal();
+      renderTasks();
+    }
+
+    function openAddTaskModal() {
+      const m = document.getElementById('addTaskModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+
+    function closeAddTaskModal() {
+      const m = document.getElementById('addTaskModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    function createCustomTask(e) {
+      e.preventDefault();
+      const title = document.getElementById('newTaskTitle').value.trim();
+      const desc = document.getElementById('newTaskDesc').value.trim();
+      state.tasks.unshift({
+        id: 'custom_' + Date.now(),
+        title,
+        desc,
+        points: 25,
+        status: 'todo',
+        proof: '',
+        steps: ['Spend 30 focused minutes executing this task.', 'Document your output and claim your Rehan Points.']
+      });
+      document.getElementById('newTaskTitle').value = '';
+      document.getElementById('newTaskDesc').value = '';
+      saveState();
+      closeAddTaskModal();
+      renderTasks();
+    }
+
+    // ==================== PROFILE ====================
+    function renderProfile() {
+      const p = state.profile;
+      document.getElementById('profName').value = p.name || '';
+      document.getElementById('profCity').value = p.city || '';
+      document.getElementById('profCurrentIncome').value = p.currentIncome || 0;
+      document.getElementById('profTargetIncome').value = p.targetIncome || 100000;
+      document.getElementById('profSkills').value = p.skills || '';
+      document.getElementById('profSocial').value = p.social || '';
+      document.getElementById('profCv').value = p.cv || '';
+
+      const fields = [p.name, p.city, p.skills, p.social, p.cv];
+      const filled = fields.filter(Boolean).length;
+      const pct = Math.round((filled / fields.length) * 100);
+      document.getElementById('profileCompletionBadge').textContent = `${pct}% Complete`;
+
+      const cur = Number(p.currentIncome || 0);
+      const tgt = Math.max(1, Number(p.targetIncome || 100000));
+      document.getElementById('incomeRatioText').textContent = `PKR ${cur.toLocaleString()} / ${tgt.toLocaleString()}`;
+      document.getElementById('incomeProgressBar').style.width = `${Math.max(4, Math.min(100, (cur / tgt) * 100))}%`;
+    }
+
+    function saveProfile(e) {
+      e.preventDefault();
+      state.profile = {
+        name: document.getElementById('profName').value.trim(),
+        city: document.getElementById('profCity').value.trim(),
+        currentIncome: Number(document.getElementById('profCurrentIncome').value || 0),
+        targetIncome: Number(document.getElementById('profTargetIncome').value || 100000),
+        skills: document.getElementById('profSkills').value.trim(),
+        social: document.getElementById('profSocial').value.trim(),
+        cv: document.getElementById('profCv').value.trim()
+      };
+      saveState();
+      renderProfile();
+      const msg = document.getElementById('profileSavedMsg');
+      msg.classList.remove('hidden');
+      setTimeout(() => msg.classList.add('hidden'), 2500);
+    }
+
+    // ==================== SETTINGS ====================
+    function renderSettings() {
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        if (btn.dataset.lang === state.language) {
+          btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+        } else {
+          btn.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-600');
+        }
+      });
+
+      document.getElementById('aiProviderSelect').value = state.aiProvider || 'local';
+      document.getElementById('apiKeyInput').value = state.apiKey || '';
+      document.getElementById('apiKeyWrapper').classList.toggle('hidden', state.aiProvider === 'local');
+    }
+
+    function setLanguage(lang) {
+      state.language = lang;
+      saveState();
+      renderSettings();
+    }
+
+    function saveAiSettings() {
+      state.aiProvider = document.getElementById('aiProviderSelect').value;
+      state.apiKey = document.getElementById('apiKeyInput').value;
+      saveState();
+      renderSettings();
+    }
+
+    function resetAllData() {
+      if (!confirm('Reset all Rehan.ai data, points, and chat history?')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      state = loadState();
+      saveState();
+      renderChat();
+      renderTasks();
+      renderProfile();
+      renderSettings();
+      switchTab('home');
+    }
+
+    // ==================== INIT ====================
+    renderAllMeta();
+    renderChat();
+    switchTab('home');
+  </script>
+</body>
+</html>
