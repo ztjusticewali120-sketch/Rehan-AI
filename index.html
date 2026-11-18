@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rehan.ai — Your AI Partner to Earn 1 Lakh a Month | Rehan School Clone</title>
+  <title>Rehan.ai — Your AI Partner to Earn 1 Lakh a Month | Multi-User Edition</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet" />
@@ -24,7 +24,7 @@
 
   <!-- Top Navbar -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
       <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
         <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-extrabold text-xl flex items-center justify-center shadow-sm">
           R
@@ -32,9 +32,9 @@
         <div>
           <div class="font-bold text-lg leading-tight flex items-center gap-1.5">
             <span>Rehan.ai</span>
-            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Rehan School</span>
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 hidden sm:inline">Rehan School</span>
           </div>
-          <p class="text-xs text-slate-500 hidden sm:block">Your AI partner to earn 1 Lakh a month</p>
+          <p class="text-xs text-slate-500 hidden md:block">Your AI partner to earn 1 Lakh a month</p>
         </div>
       </div>
 
@@ -47,21 +47,42 @@
         <button onclick="switchTab('settings')" data-nav="settings" class="nav-btn px-3.5 py-1.5 rounded-lg text-sm font-medium transition">Settings</button>
       </nav>
 
-      <!-- Right Status Badges -->
+      <!-- Right Auth / Status Controls -->
       <div class="flex items-center gap-2">
-        <button onclick="switchTab('tasks')" class="flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-800 px-3 py-1.5 rounded-full text-xs font-bold hover:bg-amber-100 transition">
-          <span>⭐</span>
-          <span id="headerPoints">0</span>
-          <span class="hidden sm:inline">Points</span>
-        </button>
-        <button onclick="openVoiceCall()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-sm transition">
-          <span>📞</span>
-          <span class="hidden sm:inline" data-i18n="callBtn">Call Rehan.ai</span>
-        </button>
+        <!-- Shown when Logged Out -->
+        <div id="guestControls" class="flex items-center gap-2">
+          <button onclick="openAuthModal('login')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 border border-slate-200 transition">
+            Login
+          </button>
+          <button onclick="openAuthModal('signup')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition">
+            Sign Up Free
+          </button>
+        </div>
+
+        <!-- Shown when Logged In -->
+        <div id="userControls" class="hidden items-center gap-2">
+          <button onclick="switchTab('tasks')" class="flex items-center gap-1 bg-amber-50 border border-amber-200 text-amber-800 px-2.5 py-1.5 rounded-full text-xs font-bold hover:bg-amber-100 transition">
+            <span>⭐</span>
+            <span id="headerPoints">0</span>
+          </button>
+          <button onclick="openVoiceCall()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1 shadow-sm transition">
+            <span>📞</span>
+            <span class="hidden sm:inline">Call</span>
+          </button>
+          <div class="flex items-center gap-1.5 pl-1 border-l border-slate-200">
+            <div onclick="switchTab('profile')" class="cursor-pointer flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 px-2.5 py-1 rounded-full transition" title="Your Account">
+              <span id="headerAvatar" class="w-5 h-5 rounded-full bg-emerald-600 text-white text-[11px] font-bold flex items-center justify-center">U</span>
+              <span id="headerUserName" class="text-xs font-semibold text-slate-700 max-w-[85px] truncate hidden sm:inline">User</span>
+            </div>
+            <button onclick="logoutUser()" title="Logout / Switch Account" class="text-xs font-semibold text-rose-600 hover:bg-rose-50 px-2 py-1.5 rounded-lg transition">
+              Logout
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Mobile Bottom-ish Subnav -->
+    <!-- Mobile Subnav -->
     <div class="md:hidden flex border-t border-slate-100 bg-white overflow-x-auto px-2 py-1.5 gap-1">
       <button onclick="switchTab('home')" data-nav="home" class="nav-btn flex-1 whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium">Home</button>
       <button onclick="switchTab('coach')" data-nav="coach" class="nav-btn flex-1 whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium">AI Coach</button>
@@ -84,24 +105,34 @@
             <span>•</span>
             <span>Free · Urdu + Roman Urdu + English</span>
           </div>
-          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight" data-i18n="heroTitle">
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
             Your AI Partner to Earn 1 Lakh a Month
           </h1>
-          <p class="text-emerald-100 text-base sm:text-lg leading-relaxed" data-i18n="heroSub">
-            Rehan.ai is your personal AI coach for young people in Pakistan. Talk by voice call or chat in Urdu, Roman Urdu, or English — get practical daily tasks and a real plan to earn PKR 100,000 ($500)/month.
+          <p class="text-emerald-100 text-base sm:text-lg leading-relaxed">
+            Rehan.ai is your personal AI coach for young people in Pakistan. Create your own free account to save your chats, track your Rehan Points, and build your personal PKR 100,000 ($500)/month roadmap.
           </p>
-          <div class="flex flex-wrap gap-3 pt-2">
+          <div class="flex flex-wrap gap-3 pt-2" id="heroAuthActions">
+            <button onclick="openAuthModal('signup')" class="bg-white text-emerald-900 hover:bg-emerald-50 font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transition">
+              <span>🚀</span>
+              <span>Create Free Account ($10 Credit)</span>
+            </button>
+            <button onclick="openAuthModal('login')" class="bg-emerald-600/80 hover:bg-emerald-500 border border-emerald-400/40 text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-2 transition">
+              <span>🔑</span>
+              <span>Login to My Account</span>
+            </button>
+          </div>
+          <div class="flex flex-wrap gap-3 pt-2 hidden" id="heroLoggedInActions">
             <button onclick="openVoiceCall()" class="bg-white text-emerald-900 hover:bg-emerald-50 font-bold px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg transition">
               <span>📞</span>
               <span>Call me, Rehan.ai will explain</span>
             </button>
             <button onclick="switchTab('coach')" class="bg-emerald-600/80 hover:bg-emerald-500 border border-emerald-400/40 text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-2 transition">
               <span>💬</span>
-              <span>Start Chatting</span>
+              <span>Open My AI Coach</span>
             </button>
           </div>
           <p class="text-xs text-emerald-200/90 font-medium">
-            ✓ $10.00 Free AI Credit included &nbsp;·&nbsp; ✓ You don't pay with money, you pay with action
+            ✓ Separate private workspace for every user &nbsp;·&nbsp; ✓ You don't pay with money, you pay with action
           </p>
         </div>
 
@@ -117,7 +148,7 @@
             </div>
           </div>
           <p class="text-xs text-emerald-50 bg-black/20 rounded-xl p-3 leading-relaxed">
-            "Assalam-o-Alaikum! Batao aaj ka 30-minute task kya hai? Hum mil kar aapka Rs. 25,000 se 1 Lakh/month ka plan banayenge."
+            "Assalam-o-Alaikum! Apna account banayein aur batao aaj ka 30-minute task kya hai? Hum mil kar aapka Rs. 25,000 se 1 Lakh/month ka plan banayenge."
           </p>
         </div>
       </div>
@@ -128,7 +159,7 @@
           <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Our Mission</span>
           <h2 class="text-2xl font-extrabold mt-1">Help 220 Million Pakistanis Earn $500 Per Month</h2>
           <p class="text-sm text-slate-600 mt-2">
-            Learn. Take Action. Earn Points. Increase Your Income. Traditional coaching is expensive — on Rehan.ai, your action keeps mentorship free.
+            Learn. Take Action. Earn Points. Increase Your Income. Every user gets their own personal tracker and AI memory.
           </p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
@@ -149,10 +180,10 @@
 
       <!-- How to Start -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div onclick="switchTab('profile')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-400 transition">
+        <div onclick="openAuthModal('signup')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-400 transition">
           <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">1</div>
-          <h3 class="font-bold text-sm">Complete Your Profile</h3>
-          <p class="text-xs text-slate-600 mt-1">Add your skills, current income, and CV or LinkedIn link.</p>
+          <h3 class="font-bold text-sm">Sign Up Your Account</h3>
+          <p class="text-xs text-slate-600 mt-1">Create your personal login to save your progress privately.</p>
         </div>
         <div onclick="switchTab('coach')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-400 transition">
           <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">2</div>
@@ -166,8 +197,8 @@
         </div>
         <div onclick="switchTab('profile')" class="cursor-pointer bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-400 transition">
           <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center mb-3">4</div>
-          <h3 class="font-bold text-sm">Come Back Every Day</h3>
-          <p class="text-xs text-slate-600 mt-1">Spend 30 mins daily — your coach follows up and tracks growth.</p>
+          <h3 class="font-bold text-sm">Track Income Growth</h3>
+          <p class="text-xs text-slate-600 mt-1">Come back daily and watch your income rise toward 1 Lakh.</p>
         </div>
       </div>
     </section>
@@ -191,6 +222,10 @@
           </button>
 
           <div class="bg-slate-50 rounded-xl p-3.5 border border-slate-100 space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-slate-500">Account</span>
+              <span class="font-bold text-slate-800 truncate max-w-[140px]" id="coachAccountEmail">-</span>
+            </div>
             <div class="flex justify-between">
               <span class="text-slate-500">Free Credit Left</span>
               <span class="font-bold text-emerald-700" id="creditLeftLabel">$10.00</span>
@@ -223,7 +258,7 @@
           </div>
 
           <button onclick="clearChat()" class="w-full text-xs text-slate-400 hover:text-rose-600 py-1 transition">
-            Clear Chat History
+            Clear My Chat History
           </button>
         </div>
 
@@ -232,7 +267,7 @@
           <div class="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/70">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-              <span class="font-semibold text-sm">Chat in Urdu, Roman Urdu, or English</span>
+              <span class="font-semibold text-sm">Personal Chat (Urdu, Roman Urdu, English)</span>
             </div>
             <label class="flex items-center gap-1.5 text-xs text-slate-600 cursor-pointer">
               <input type="checkbox" id="autoSpeakToggle" class="rounded text-emerald-600" />
@@ -253,7 +288,7 @@
               class="flex-1 bg-slate-100 focus:bg-white border border-transparent focus:border-emerald-500 rounded-xl px-4 py-2.5 text-sm outline-none transition"
               autocomplete="off"
             />
-            <button type="submit" id="sendBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition">
+            <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition">
               Send
             </button>
           </form>
@@ -263,7 +298,6 @@
 
     <!-- ==================== TAB 3: REHAN POINTS & TASKS ==================== -->
     <section id="tab-tasks" class="tab-panel hidden space-y-6">
-      <!-- Points Header -->
       <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-6 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
         <div>
           <div class="text-xs font-bold uppercase tracking-wider text-amber-100">Action = Free Mentorship</div>
@@ -271,7 +305,7 @@
             <span>⭐ Rehan Points:</span>
             <span id="totalPointsDisplay">0</span>
           </h2>
-          <p class="text-sm text-amber-50 mt-1">Complete practical tasks, submit progress, and build your 1 Lakh/month foundation.</p>
+          <p class="text-sm text-amber-50 mt-1">Your personal tasks &amp; points are saved privately to your account.</p>
         </div>
         <div class="bg-white/15 backdrop-blur rounded-xl px-5 py-3 text-center">
           <div class="text-xs text-amber-100">Daily Commitment</div>
@@ -279,7 +313,6 @@
         </div>
       </div>
 
-      <!-- Filter Tabs (matching Rehan.ai: All | To do | Pending | Completed) -->
       <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-1.5 bg-white p-1.5 rounded-xl border border-slate-200">
           <button onclick="setTaskFilter('all')" data-filter="all" class="task-filter-btn px-4 py-1.5 rounded-lg text-xs font-semibold transition">All</button>
@@ -292,19 +325,17 @@
         </button>
       </div>
 
-      <!-- Task Cards -->
       <div id="tasksGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
     </section>
 
     <!-- ==================== TAB 4: PROFILE & INCOME PLAN ==================== -->
     <section id="tab-profile" class="tab-panel hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Profile Form -->
         <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
           <div class="flex items-center justify-between">
             <div>
               <h2 class="text-lg font-bold">Your Rehan.ai Profile</h2>
-              <p class="text-xs text-slate-500">Your AI coach uses this to personalize your 1 Lakh/month roadmap.</p>
+              <p class="text-xs text-slate-500">Logged in as <span id="profileAccountBadge" class="font-semibold text-emerald-700">-</span></p>
             </div>
             <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-3 py-1 rounded-full" id="profileCompletionBadge">0% Complete</span>
           </div>
@@ -316,7 +347,7 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">City</label>
-              <input id="profCity" type="text" placeholder="e.g., Karachi / Lahore / Online" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
+              <input id="profCity" type="text" placeholder="e.g., Karachi / Lahore" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">Current Monthly Income (PKR)</label>
@@ -328,7 +359,7 @@
             </div>
             <div class="sm:col-span-2">
               <label class="block text-xs font-semibold text-slate-600 mb-1">Current Skills / Interests</label>
-              <input id="profSkills" type="text" placeholder="e.g., Canva, ChatGPT, Video Editing, Web Dev, English Speaking" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
+              <input id="profSkills" type="text" placeholder="e.g., Canva, ChatGPT, Video Editing, Web Dev" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">LinkedIn / Facebook Profile URL</label>
@@ -336,10 +367,10 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-600 mb-1">CV / Portfolio Summary or Link</label>
-              <input id="profCv" type="text" placeholder="Link or short summary (e.g., Matric / BSCS)" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
+              <input id="profCv" type="text" placeholder="Link or short summary" class="w-full border border-slate-200 rounded-xl px-3.5 py-2 text-sm focus:border-emerald-500 outline-none" />
             </div>
             <div class="sm:col-span-2 flex items-center justify-between pt-2">
-              <span id="profileSavedMsg" class="text-xs text-emerald-600 font-semibold hidden">✓ Saved &amp; synced with AI Coach!</span>
+              <span id="profileSavedMsg" class="text-xs text-emerald-600 font-semibold hidden">✓ Saved to your account!</span>
               <button type="submit" class="ml-auto bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition">
                 Save Profile
               </button>
@@ -347,7 +378,6 @@
           </form>
         </div>
 
-        <!-- Income Roadmap Card -->
         <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
           <h3 class="font-bold text-base">Income Growth Roadmap</h3>
           <div class="space-y-2">
@@ -385,9 +415,8 @@
     <!-- ==================== TAB 5: SETTINGS ==================== -->
     <section id="tab-settings" class="tab-panel hidden max-w-2xl mx-auto space-y-6">
       <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
-        <h2 class="text-lg font-bold">Language &amp; AI Settings</h2>
+        <h2 class="text-lg font-bold">Account, Language &amp; AI Settings</h2>
 
-        <!-- Language -->
         <div>
           <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Choose Your Language</label>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -400,7 +429,6 @@
 
         <hr class="border-slate-100" />
 
-        <!-- AI Backend Provider -->
         <div class="space-y-3">
           <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider">AI Mentor Engine</label>
           <select id="aiProviderSelect" onchange="saveAiSettings()" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500">
@@ -410,23 +438,30 @@
           </select>
 
           <div id="apiKeyWrapper" class="hidden space-y-2">
-            <label class="block text-xs font-semibold text-slate-600">API Key (Stored locally in your browser)</label>
+            <label class="block text-xs font-semibold text-slate-600">API Key (Stored privately in your account)</label>
             <input id="apiKeyInput" type="password" placeholder="Paste Gemini or OpenAI API key..." oninput="saveAiSettings()" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500" />
-            <p class="text-[11px] text-slate-500">
-              Tip: If using Gemini, get a free key from Google AI Studio. The app automatically uses Rehan Allahwala's mentorship system prompt.
-            </p>
           </div>
         </div>
 
         <hr class="border-slate-100" />
 
-        <div class="flex items-center justify-between">
+        <div class="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <div class="text-sm font-semibold text-rose-600">Reset All App Data</div>
-            <div class="text-xs text-slate-500">Clears chats, profile, and Rehan Points back to default.</div>
+            <div class="text-sm font-semibold text-slate-800">Reset Only My Account Data</div>
+            <div class="text-xs text-slate-500">Resets your points &amp; chats without affecting other users.</div>
           </div>
-          <button onclick="resetAllData()" class="px-4 py-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-semibold transition">
-            Reset Data
+          <button onclick="resetCurrentUserData()" class="px-4 py-2 rounded-xl border border-amber-300 text-amber-800 hover:bg-amber-50 text-xs font-semibold transition">
+            Reset My Data
+          </button>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
+          <div>
+            <div class="text-sm font-semibold text-rose-600">Delete My Account</div>
+            <div class="text-xs text-slate-500">Permanently removes your login and saved data from this browser.</div>
+          </div>
+          <button onclick="deleteCurrentAccount()" class="px-4 py-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-semibold transition">
+            Delete Account
           </button>
         </div>
       </div>
@@ -434,30 +469,90 @@
 
   </main>
 
+  <!-- ==================== LOGIN / SIGN UP MODAL ==================== -->
+  <div id="authModal" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl space-y-5 relative">
+      <button onclick="closeAuthModal()" class="absolute right-5 top-5 text-slate-400 hover:text-slate-700 text-2xl leading-none">&times;</button>
+
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-extrabold text-xl flex items-center justify-center">R</div>
+        <div>
+          <h2 class="font-bold text-lg leading-tight">Rehan.ai Account</h2>
+          <p class="text-xs text-slate-500">Each user gets separate points, chats &amp; income plan</p>
+        </div>
+      </div>
+
+      <!-- Mode Switch -->
+      <div class="grid grid-cols-2 bg-slate-100 p-1 rounded-xl">
+        <button id="authTabLogin" onclick="setAuthMode('login')" class="py-2 rounded-lg text-xs font-bold transition">Login</button>
+        <button id="authTabSignup" onclick="setAuthMode('signup')" class="py-2 rounded-lg text-xs font-bold transition">Create Account</button>
+      </div>
+
+      <div id="authErrorBox" class="hidden bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-xl px-3.5 py-2.5 font-medium"></div>
+
+      <!-- Login Form -->
+      <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Email or Phone Number</label>
+          <input id="loginIdentifier" required type="text" placeholder="e.g., ali@example.com or 03001234567" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Password</label>
+          <input id="loginPassword" required type="password" placeholder="Enter your password" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500" />
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm transition shadow-sm">
+          Login to My Account
+        </button>
+
+        <!-- Saved Accounts Quick Switcher -->
+        <div id="savedAccountsWrap" class="hidden pt-2 border-t border-slate-100">
+          <p class="text-[11px] font-semibold text-slate-500 mb-1.5">Accounts created on this device (click to fill):</p>
+          <div id="savedAccountsList" class="flex flex-wrap gap-1.5"></div>
+        </div>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signupForm" onsubmit="handleSignup(event)" class="hidden space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Full Name</label>
+          <input id="signupName" required type="text" placeholder="e.g., Sana Khan" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Email or Phone Number</label>
+          <input id="signupIdentifier" required type="text" placeholder="e.g., sana@example.com or 03009876543" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">City (Optional)</label>
+          <input id="signupCity" type="text" placeholder="e.g., Lahore / Karachi / Islamabad" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Create Password (min 4 chars)</label>
+          <input id="signupPassword" required minlength="4" type="password" placeholder="Choose a password" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500" />
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-sm transition shadow-sm">
+          Create Free Account &amp; Get $10 Credit
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- ==================== VOICE CALL MODAL ==================== -->
   <div id="voiceModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden items-center justify-center p-4">
     <div class="bg-gradient-to-b from-emerald-900 to-slate-900 border border-emerald-700/50 rounded-3xl max-w-sm w-full p-8 text-center text-white shadow-2xl space-y-6">
       <div class="text-xs uppercase tracking-widest text-emerald-300 font-semibold" id="callStatusText">Calling Rehan.ai…</div>
-
       <div class="flex justify-center">
-        <div id="callAvatarRing" class="w-28 h-28 rounded-full bg-emerald-500 flex items-center justify-center text-4xl font-extrabold pulse-ring">
-          R
-        </div>
+        <div class="w-28 h-28 rounded-full bg-emerald-500 flex items-center justify-center text-4xl font-extrabold pulse-ring">R</div>
       </div>
-
       <div>
         <h3 class="text-xl font-bold">Rehan.ai AI Coach</h3>
         <p class="text-xs text-emerald-200 mt-1" id="callTimer">00:00</p>
       </div>
-
       <div class="bg-black/30 rounded-2xl p-4 min-h-[92px] flex items-center justify-center text-xs text-emerald-50 leading-relaxed" id="callTranscript">
         Tap "Speak Now" to talk in English, Urdu, or Roman Urdu.
       </div>
-
       <div class="flex items-center justify-center gap-4">
         <button onclick="listenDuringCall()" id="callMicBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-5 py-3 rounded-2xl text-sm flex items-center gap-2 transition">
-          <span>🎙️</span>
-          <span>Speak Now</span>
+          <span>🎙️</span><span>Speak Now</span>
         </button>
         <button onclick="closeVoiceCall()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-5 py-3 rounded-2xl text-sm transition">
           End Call
@@ -476,17 +571,14 @@
         </div>
         <button onclick="closeTaskModal()" class="text-slate-400 hover:text-slate-700 text-xl leading-none">&times;</button>
       </div>
-
       <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
         <div class="text-xs font-bold text-slate-500 uppercase mb-1.5">Step-by-Step Guide</div>
         <ol id="modalTaskSteps" class="list-decimal list-inside space-y-1.5 text-xs text-slate-700"></ol>
       </div>
-
       <div>
         <label class="block text-xs font-semibold text-slate-600 mb-1">Proof / Note of Action (optional)</label>
         <input id="modalTaskProof" type="text" placeholder="e.g., Created my LinkedIn & shared link" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-emerald-500" />
       </div>
-
       <div class="flex gap-2 justify-end pt-2">
         <button onclick="submitTaskPending()" class="px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition">
           Submit as Pending
@@ -521,7 +613,10 @@
   </div>
 
   <script>
-    // ==================== DEFAULT STATE ====================
+    // ==================== CONSTANTS & MULTI-USER STORAGE ====================
+    const USERS_KEY = 'rehan_ai_users_v2';
+    const SESSION_KEY = 'rehan_ai_session_v2';
+
     const DEFAULT_TASKS = [
       {
         id: 't1',
@@ -616,29 +711,16 @@
       }
     ];
 
-    const STORAGE_KEY = 'rehan_ai_clone_v1';
-
-    let state = loadState();
-    let currentTab = 'home';
-    let currentTaskFilter = 'all';
-    let activeTaskId = null;
-    let callTimerInterval = null;
-    let callSeconds = 0;
-    let activeRecognition = null;
-
-    function loadState() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        try { return JSON.parse(saved); } catch (e) {}
-      }
+    function createFreshUserData(fullName, city) {
+      const firstName = (fullName || 'Dost').trim().split(' ')[0];
       return {
         language: 'auto',
         aiProvider: 'local',
         apiKey: '',
         credit: 10.00,
         profile: {
-          name: '',
-          city: '',
+          name: fullName || '',
+          city: city || '',
           currentIncome: 0,
           targetIncome: 100000,
           skills: '',
@@ -649,19 +731,260 @@
         messages: [
           {
             role: 'assistant',
-            text: "Assalam-o-Alaikum! Main hoon Rehan.ai — aapka personal AI earning coach (Rehan School model).\n\nMera mission hai ke aap mahina PKR 100,000 ($500) tak kamayein. Mujhse Urdu, Roman Urdu, ya English mein baat karein!\n\nBatao: Aapka naam kya hai, abhi aap kya karte hain, aur aap kaunsi skill seekh kar earning start karna chahte hain?"
+            text: `Assalam-o-Alaikum ${firstName}! Welcome to Rehan.ai — aapka personal AI earning coach (Rehan School model).\n\nMera mission hai ke aap mahina PKR 100,000 ($500) tak kamayein. Mujhse Urdu, Roman Urdu, ya English mein baat karein!\n\nBatao ${firstName}: Abhi aap kya karte hain, aur kaunsi skill seekh kar earning start karna chahte hain?`
           }
         ]
       };
     }
 
+    // Pure-JS deterministic salted hash (works on file://, http://, and https://)
+    function hashPassword(password, salt) {
+      const str = `rehan_ai_salt_${salt}_${password}`;
+      let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+      for (let i = 0; i < str.length; i++) {
+        const ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+      }
+      h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+      h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+      return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
+    }
+
+    function normalizeId(raw) {
+      return raw.trim().toLowerCase();
+    }
+
+    function getUsersDb() {
+      try {
+        return JSON.parse(localStorage.getItem(USERS_KEY) || '{}');
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveUsersDb(db) {
+      localStorage.setItem(USERS_KEY, JSON.stringify(db));
+    }
+
+    function getCurrentUserId() {
+      return localStorage.getItem(SESSION_KEY) || null;
+    }
+
+    // Active runtime references
+    let currentUserId = getCurrentUserId();
+    let state = null;
+    let currentTab = 'home';
+    let currentTaskFilter = 'all';
+    let activeTaskId = null;
+    let pendingTabAfterAuth = null;
+    let callTimerInterval = null;
+    let callSeconds = 0;
+    let activeRecognition = null;
+
+    function syncActiveUserState() {
+      const db = getUsersDb();
+      if (currentUserId && db[currentUserId]) {
+        state = db[currentUserId].data;
+      } else {
+        currentUserId = null;
+        localStorage.removeItem(SESSION_KEY);
+        state = null;
+      }
+    }
+
     function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      if (!currentUserId || !state) return;
+      const db = getUsersDb();
+      if (!db[currentUserId]) return;
+      db[currentUserId].data = state;
+      saveUsersDb(db);
       renderAllMeta();
+    }
+
+    // ==================== AUTH UI & HANDLERS ====================
+    function openAuthModal(mode = 'login', nextTab = null) {
+      pendingTabAfterAuth = nextTab;
+      setAuthMode(mode);
+      hideAuthError();
+      renderSavedAccountsChips();
+      const m = document.getElementById('authModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+
+    function closeAuthModal() {
+      pendingTabAfterAuth = null;
+      const m = document.getElementById('authModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    function setAuthMode(mode) {
+      hideAuthError();
+      const loginBtn = document.getElementById('authTabLogin');
+      const signupBtn = document.getElementById('authTabSignup');
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+
+      if (mode === 'signup') {
+        signupBtn.classList.add('bg-white', 'text-emerald-700', 'shadow-sm');
+        loginBtn.classList.remove('bg-white', 'text-emerald-700', 'shadow-sm');
+        signupForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+      } else {
+        loginBtn.classList.add('bg-white', 'text-emerald-700', 'shadow-sm');
+        signupBtn.classList.remove('bg-white', 'text-emerald-700', 'shadow-sm');
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+      }
+    }
+
+    function showAuthError(msg) {
+      const box = document.getElementById('authErrorBox');
+      box.textContent = msg;
+      box.classList.remove('hidden');
+    }
+
+    function hideAuthError() {
+      document.getElementById('authErrorBox').classList.add('hidden');
+    }
+
+    function renderSavedAccountsChips() {
+      const db = getUsersDb();
+      const keys = Object.keys(db);
+      const wrap = document.getElementById('savedAccountsWrap');
+      const list = document.getElementById('savedAccountsList');
+      if (!keys.length) {
+        wrap.classList.add('hidden');
+        return;
+      }
+      wrap.classList.remove('hidden');
+      list.innerHTML = '';
+      keys.forEach(k => {
+        const u = db[k];
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'text-[11px] bg-slate-100 hover:bg-emerald-100 text-slate-700 px-2.5 py-1 rounded-full font-medium transition';
+        btn.textContent = `${u.fullName} (${u.identifier})`;
+        btn.onclick = () => {
+          document.getElementById('loginIdentifier').value = u.identifier;
+          document.getElementById('loginPassword').focus();
+        };
+        list.appendChild(btn);
+      });
+    }
+
+    function handleSignup(e) {
+      e.preventDefault();
+      hideAuthError();
+      const fullName = document.getElementById('signupName').value.trim();
+      const rawId = document.getElementById('signupIdentifier').value.trim();
+      const city = document.getElementById('signupCity').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const userKey = normalizeId(rawId);
+
+      if (!fullName || !userKey || password.length < 4) {
+        showAuthError('Please enter your name, email/phone, and a password (min 4 characters).');
+        return;
+      }
+
+      const db = getUsersDb();
+      if (db[userKey]) {
+        showAuthError('An account with this email/phone already exists. Please login instead.');
+        return;
+      }
+
+      db[userKey] = {
+        identifier: rawId,
+        fullName,
+        passwordHash: hashPassword(password, userKey),
+        createdAt: new Date().toISOString(),
+        data: createFreshUserData(fullName, city)
+      };
+
+      saveUsersDb(db);
+      currentUserId = userKey;
+      localStorage.setItem(SESSION_KEY, userKey);
+      syncActiveUserState();
+
+      document.getElementById('signupForm').reset();
+      const dest = pendingTabAfterAuth || 'coach';
+      closeAuthModal();
+      updateAuthUI();
+      renderChat();
+      switchTab(dest);
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      hideAuthError();
+      const rawId = document.getElementById('loginIdentifier').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const userKey = normalizeId(rawId);
+
+      const db = getUsersDb();
+      const user = db[userKey];
+      if (!user) {
+        showAuthError('No account found with that email/phone. Click "Create Account" to sign up.');
+        return;
+      }
+
+      if (user.passwordHash !== hashPassword(password, userKey)) {
+        showAuthError('Incorrect password. Please try again.');
+        return;
+      }
+
+      currentUserId = userKey;
+      localStorage.setItem(SESSION_KEY, userKey);
+      syncActiveUserState();
+
+      document.getElementById('loginForm').reset();
+      const dest = pendingTabAfterAuth || 'coach';
+      closeAuthModal();
+      updateAuthUI();
+      renderChat();
+      switchTab(dest);
+    }
+
+    function logoutUser() {
+      closeVoiceCall();
+      window.speechSynthesis?.cancel();
+      currentUserId = null;
+      state = null;
+      localStorage.removeItem(SESSION_KEY);
+      updateAuthUI();
+      switchTab('home');
+    }
+
+    function updateAuthUI() {
+      const isLoggedIn = Boolean(currentUserId && state);
+      document.getElementById('guestControls').classList.toggle('hidden', isLoggedIn);
+      document.getElementById('userControls').classList.toggle('hidden', !isLoggedIn);
+      document.getElementById('userControls').classList.toggle('flex', isLoggedIn);
+
+      document.getElementById('heroAuthActions').classList.toggle('hidden', isLoggedIn);
+      document.getElementById('heroLoggedInActions').classList.toggle('hidden', !isLoggedIn);
+
+      if (isLoggedIn) {
+        const db = getUsersDb();
+        const userRec = db[currentUserId];
+        const displayName = state.profile.name || userRec.fullName || 'User';
+        document.getElementById('headerUserName').textContent = displayName;
+        document.getElementById('headerAvatar').textContent = displayName.charAt(0).toUpperCase();
+        document.getElementById('coachAccountEmail').textContent = userRec.identifier;
+        document.getElementById('profileAccountBadge').textContent = userRec.identifier;
+        renderAllMeta();
+      }
     }
 
     // ==================== NAVIGATION ====================
     function switchTab(tab) {
+      if (tab !== 'home' && (!currentUserId || !state)) {
+        openAuthModal('login', tab);
+        return;
+      }
+
       currentTab = tab;
       document.querySelectorAll('.tab-panel').forEach(el => el.classList.add('hidden'));
       document.getElementById(`tab-${tab}`).classList.remove('hidden');
@@ -676,7 +999,7 @@
         }
       });
 
-      if (tab === 'coach') scrollChatToBottom();
+      if (tab === 'coach') { renderChat(); scrollChatToBottom(); }
       if (tab === 'tasks') renderTasks();
       if (tab === 'profile') renderProfile();
       if (tab === 'settings') renderSettings();
@@ -684,12 +1007,14 @@
 
     // ==================== RENDER META ====================
     function getPoints() {
+      if (!state) return 0;
       return state.tasks
         .filter(t => t.status === 'completed')
         .reduce((sum, t) => sum + Number(t.points || 0), 0);
     }
 
     function renderAllMeta() {
+      if (!state) return;
       const pts = getPoints();
       document.getElementById('headerPoints').textContent = pts;
       document.getElementById('totalPointsDisplay').textContent = pts;
@@ -713,7 +1038,7 @@
 
     // ==================== CHAT ENGINE ====================
     function escapeHtml(str) {
-      return str
+      return String(str)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
@@ -726,6 +1051,7 @@
     }
 
     function renderChat() {
+      if (!state) return;
       const box = document.getElementById('chatMessages');
       box.innerHTML = '';
       state.messages.forEach(msg => {
@@ -763,11 +1089,13 @@
     }
 
     function sendQuickPrompt(text) {
+      if (!state) { openAuthModal('login', 'coach'); return; }
       switchTab('coach');
       processUserMessage(text);
     }
 
     function askCoachForPlan() {
+      if (!state) { openAuthModal('login', 'coach'); return; }
       switchTab('coach');
       const p = state.profile;
       const prompt = `Build my personalized 30-day plan to go from PKR ${p.currentIncome || 0}/month to PKR ${p.targetIncome || 100000}/month. My name is ${p.name || 'a learner'}, city: ${p.city || 'Pakistan'}, skills: ${p.skills || 'beginner'}.`;
@@ -775,13 +1103,12 @@
     }
 
     async function processUserMessage(text) {
+      if (!state) return '';
       state.messages.push({ role: 'user', text });
-      // Deduct tiny simulated credit like Rehan.ai
       state.credit = Math.max(0, +(state.credit - 0.02).toFixed(2));
       saveState();
       renderChat();
 
-      // Typing indicator
       const box = document.getElementById('chatMessages');
       const typing = document.createElement('div');
       typing.id = 'typingIndicator';
@@ -814,14 +1141,12 @@
 
       return `You are Rehan.ai, the personal AI earning coach built by Rehan Allahwala and the Rehan School team in Pakistan.
 Mission: Help young Pakistanis earn at least PKR 100,000 ($500) per month through AI skills, freelancing, networking, daily 30-minute habits, and action.
-Tone: Practical, motivating, direct, no-excuses like Rehan Allahwala. Always give concrete next steps (CNIC, NayaPay, LinkedIn, 30-min daily skill, Rehan Points tasks).
 User Profile: Name=${p.name || 'Not set'}, City=${p.city || 'Pakistan'}, Current Income=PKR ${p.currentIncome || 0}/mo, Target=PKR ${p.targetIncome || 100000}/mo, Skills=${p.skills || 'Beginner'}, Points=${getPoints()}.
 Pending Rehan Tasks: ${pendingTasks || 'All done!'}.
 ${langRule} Keep responses concise and action-oriented.`;
     }
 
     async function getCoachReply(userText) {
-      // Live Gemini
       if (state.aiProvider === 'gemini' && state.apiKey.trim()) {
         try {
           const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(state.apiKey.trim())}`, {
@@ -843,7 +1168,6 @@ ${langRule} Keep responses concise and action-oriented.`;
         }
       }
 
-      // Live OpenAI
       if (state.aiProvider === 'openai' && state.apiKey.trim()) {
         try {
           const res = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -868,7 +1192,6 @@ ${langRule} Keep responses concise and action-oriented.`;
         }
       }
 
-      // Built-in Smart Rehan Coach Engine (zero-setup fallback)
       return generateLocalRehanReply(userText);
     }
 
@@ -886,29 +1209,29 @@ ${langRule} Keep responses concise and action-oriented.`;
 
       if (q.includes('1 lakh') || q.includes('plan') || q.includes('25,000') || q.includes('earn') || q.includes('kamane')) {
         if (wantsRoman) {
-          return `Zabardast ${name}! **PKR 100,000 ($500)/month** tak pohnchne ka Rehan School 3-Step Formula:\n\n**Week 1-2 (Foundation — Rs. 25,000 goal):**\n• Roz 30 minutes ChatGPT + Canva ya AI Coding practice karein.\n• Apna CNIC, NayaPay/SadaPay aur LinkedIn ready karein (**Rehan Points** tab mein guides maujood hain).\n\n**Week 3-4 (First Income):**\n• Jo seekha wo doosron ko sikhayein (1,000 PKR/learner) ya 5 international/local clients ko sample bhejein.\n\nAaj ka aapka pehla task: **${nextTask ? nextTask.title : 'Daily 30-min skill'}**. Kar ke Rehan Points claim karein!`;
+          return `Zabardast ${name}! **PKR 100,000 ($500)/month** tak pohnchne ka Rehan School 3-Step Formula:\n\n**Week 1-2 (Foundation — Rs. 25,000 goal):**\n• Roz 30 minutes ChatGPT + Canva ya AI Coding practice karein.\n• Apna CNIC, NayaPay/SadaPay aur LinkedIn ready karein (**Rehan Points** tab mein guides maujood hain).\n\n**Week 3-4 (First Income):**\n• Jo seekha wo doosron ko sikhayein (1,000 PKR/learner) ya 5 clients ko sample bhejein.\n\nAaj ka aapka pehla task: **${nextTask ? nextTask.title : 'Daily 30-min skill'}**. Kar ke Rehan Points claim karein!`;
         }
         return `Great goal, ${name}! Here is your **Rehan School Action Plan to hit PKR 100,000 ($500)/month**:\n\n**Step 1 (Foundation — Rs. 25,000/mo):** Pick 1 high-demand AI skill (${p.skills || 'ChatGPT automation, Canva design, or AI Web Building'}) and practice 30 mins daily.\n**Step 2 (Setup Trust):** Finish your **CNIC, NayaPay/SadaPay, and LinkedIn** tasks in the Rehan Points tab.\n**Step 3 (Monetize):** Teach 1 learner or pitch 5 businesses a day with a live demo.\n\n**Your immediate next task:** "${nextTask ? nextTask.title : 'Keep your 30-min daily streak!'}"`;
       }
 
       if (q.includes('profile') || q.includes('task') || q.includes('review')) {
-        const missing = !p.name || !p.skills ? 'Please complete your Name & Skills in the **Profile & Plan** tab so I can tailor your roadmap.' : `Profile looks active! Skills noted: **${p.skills}**.`;
+        const missing = !p.skills ? 'Please add your Skills in the **Profile & Plan** tab so I can tailor your roadmap.' : `Profile active! Skills noted: **${p.skills}**.`;
         return `${missing}\n\nYou currently have **⭐ ${getPoints()} Rehan Points**.\nYour next recommended task is: **${nextTask ? nextTask.title : 'All core tasks completed — add a custom daily pitch task!'}**\n\nWill you commit 30 minutes to finish this today?`;
       }
 
       if (q.includes('ai') || q.includes('chatbot') || q.includes('coding') || q.includes('website')) {
-        return `At **Rehan School (Coding with AI)**, students build functional clones of WhatsApp, ChatGPT, Netflix, and business dashboards using AI — then turn that into a portfolio!\n\nPick one niche today:\n1. Build a local business website + AI chatbot in 2 hours.\n2. Offer it to 5 local clinics/academies/shops for PKR 15,000–25,000 each.\n\n4 clients = **PKR 1 Lakh/month**. Ready to start?`;
+        return `At **Rehan School (Coding with AI)**, students build functional clones and business tools using AI — then turn that into a portfolio!\n\nPick one niche today:\n1. Build a local business website + AI chatbot in 2 hours.\n2. Offer it to 5 local clinics/academies/shops for PKR 15,000–25,000 each.\n\n4 clients = **PKR 1 Lakh/month**. Ready to start?`;
       }
 
       if (wantsRoman) {
-        return `Bilkul sahi ${name}! Yaad rakhein: **Action se hi mentorship free rehti hai aur income barhti hai.**\n\nAapke abhi **⭐ ${getPoints()} Rehan Points** hain. Aaj sirf 30 minutes lagayein aur apna agla task complete karein: **${nextTask ? nextTask.title : 'Daily Client Outreach'}**.\n\nBatao kya aapne apni Profile aur LinkedIn link update kar diya hai?`;
+        return `Bilkul sahi ${name}! Yaad rakhein: **Action se hi mentorship free rehti hai aur income barhti hai.**\n\nAapke abhi **⭐ ${getPoints()} Rehan Points** hain. Aaj sirf 30 minutes lagayein aur apna agla task complete karein: **${nextTask ? nextTask.title : 'Daily Client Outreach'}**.`;
       }
 
-      return `I hear you, ${name}! Remember the Rehan.ai rule: **Small daily actions beat big excuses.**\n\nYou currently have **⭐ ${getPoints()} Rehan Points**. Your next step toward PKR 100,000/month is:\n👉 **${nextTask ? nextTask.title : 'Pitch 5 new clients today'}**\n\nTell me what skill you want to focus on for the next 30 minutes, or tap **Call Rehan.ai** for a live voice check-in!`;
+      return `I hear you, ${name}! Remember the Rehan.ai rule: **Small daily actions beat big excuses.**\n\nYou currently have **⭐ ${getPoints()} Rehan Points**. Your next step toward PKR 100,000/month is:\n👉 **${nextTask ? nextTask.title : 'Pitch 5 new clients today'}**\n\nTell me what skill you want to focus on for the next 30 minutes!`;
     }
 
     function clearChat() {
-      if (!confirm('Clear chat history?')) return;
+      if (!state || !confirm('Clear your personal chat history?')) return;
       state.messages = [state.messages[0]];
       saveState();
       renderChat();
@@ -929,7 +1252,7 @@ ${langRule} Keep responses concise and action-oriented.`;
       const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SR) return null;
       const rec = new SR();
-      rec.lang = state.language === 'ur' ? 'ur-PK' : 'en-US';
+      rec.lang = state?.language === 'ur' ? 'ur-PK' : 'en-US';
       rec.interimResults = false;
       rec.maxAlternatives = 1;
       return rec;
@@ -954,14 +1277,18 @@ ${langRule} Keep responses concise and action-oriented.`;
       rec.start();
     }
 
-    // Voice Call Modal
     function openVoiceCall() {
+      if (!currentUserId || !state) {
+        openAuthModal('login', 'coach');
+        return;
+      }
       const modal = document.getElementById('voiceModal');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      const name = state.profile.name || 'Dost';
       document.getElementById('callStatusText').textContent = 'Connected · Rehan.ai Voice Mentor';
-      document.getElementById('callTranscript').textContent = 'Assalam-o-Alaikum! Main Rehan.ai bol raha hoon. Tap "Speak Now" and tell me your goal!';
-      speakText('Assalam-o-Alaikum! This is Rehan AI, your personal earning coach. Tell me your goal today.');
+      document.getElementById('callTranscript').textContent = `Assalam-o-Alaikum ${name}! Tap "Speak Now" and tell me your goal today!`;
+      speakText(`Assalam-o-Alaikum ${name}! This is Rehan AI, your personal earning coach. Tell me your goal today.`);
 
       callSeconds = 0;
       clearInterval(callTimerInterval);
@@ -1017,6 +1344,7 @@ ${langRule} Keep responses concise and action-oriented.`;
     }
 
     function renderTasks() {
+      if (!state) return;
       document.querySelectorAll('.task-filter-btn').forEach(btn => {
         if (btn.dataset.filter === currentTaskFilter) {
           btn.classList.add('bg-emerald-600', 'text-white');
@@ -1144,6 +1472,7 @@ ${langRule} Keep responses concise and action-oriented.`;
 
     // ==================== PROFILE ====================
     function renderProfile() {
+      if (!state) return;
       const p = state.profile;
       document.getElementById('profName').value = p.name || '';
       document.getElementById('profCity').value = p.city || '';
@@ -1176,6 +1505,7 @@ ${langRule} Keep responses concise and action-oriented.`;
         cv: document.getElementById('profCv').value.trim()
       };
       saveState();
+      updateAuthUI();
       renderProfile();
       const msg = document.getElementById('profileSavedMsg');
       msg.classList.remove('hidden');
@@ -1184,6 +1514,7 @@ ${langRule} Keep responses concise and action-oriented.`;
 
     // ==================== SETTINGS ====================
     function renderSettings() {
+      if (!state) return;
       document.querySelectorAll('.lang-btn').forEach(btn => {
         if (btn.dataset.lang === state.language) {
           btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
@@ -1210,21 +1541,31 @@ ${langRule} Keep responses concise and action-oriented.`;
       renderSettings();
     }
 
-    function resetAllData() {
-      if (!confirm('Reset all Rehan.ai data, points, and chat history?')) return;
-      localStorage.removeItem(STORAGE_KEY);
-      state = loadState();
+    function resetCurrentUserData() {
+      if (!currentUserId || !confirm('Reset only YOUR points, tasks, and chats? Other accounts will not be affected.')) return;
+      const db = getUsersDb();
+      const userRec = db[currentUserId];
+      state = createFreshUserData(userRec.fullName, userRec.data?.profile?.city || '');
       saveState();
       renderChat();
       renderTasks();
       renderProfile();
       renderSettings();
-      switchTab('home');
+      switchTab('coach');
+    }
+
+    function deleteCurrentAccount() {
+      if (!currentUserId || !confirm('Permanently delete your account and all your data?')) return;
+      const db = getUsersDb();
+      delete db[currentUserId];
+      saveUsersDb(db);
+      logoutUser();
     }
 
     // ==================== INIT ====================
-    renderAllMeta();
-    renderChat();
+    syncActiveUserState();
+    updateAuthUI();
+    if (state) renderChat();
     switchTab('home');
   </script>
 </body>
